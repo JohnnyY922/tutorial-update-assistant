@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Design Tokens — Dark-first SaaS System
+   主色：Indigo #6C74F0  /  基准：4px 网格  /  默认模式：Dark
+   版本 v1.0
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------
+     1. 色彩 · 主色 Primary（Indigo 靛蓝）
+     --------------------------------------------------------------------- */
+  --color-primary-50:  #F0F1FE;
+  --color-primary-100: #E3E5FD;
+  --color-primary-200: #C8CCFB;
+  --color-primary-300: #A9AFF8;
+  --color-primary-400: #8B93F5;
+  --color-primary-500: #6C74F0;  /* 品牌主色 */
+  --color-primary-600: #565FE0;  /* 悬停 / 深色底强调 */
+  --color-primary-700: #454DBF;  /* 按下 / 描边 */
+  --color-primary-800: #383E99;
+  --color-primary-900: #2E3379;
+  --color-primary-950: #1B1E4A;
+
+  /* ---------------------------------------------------------------------
+     2. 色彩 · 辅助色 Accent（青 Teal，用于次级数据、渐变、高亮）
+     --------------------------------------------------------------------- */
+  --color-accent-300: #7FE7DA;
+  --color-accent-400: #4FD9C8;
+  --color-accent-500: #2DD4BF;  /* 辅助色主值 */
+  --color-accent-600: #14B8A6;
+  --color-accent-700: #0F9488;
+
+  /* ---------------------------------------------------------------------
+     3. 色彩 · 中性色 Neutral（石墨灰，深色界面层级的基础）
+     --------------------------------------------------------------------- */
+  --color-neutral-0:    #FFFFFF;
+  --color-neutral-50:   #F6F7F9;
+  --color-neutral-100:  #E9EBEF;
+  --color-neutral-200:  #D2D6DE;
+  --color-neutral-300:  #AEB4C0;
+  --color-neutral-400:  #868D9C;
+  --color-neutral-500:  #666D7C;
+  --color-neutral-600:  #4C525E;
+  --color-neutral-700:  #363B45;
+  --color-neutral-800:  #23262D;
+  --color-neutral-850:  #1A1D22;
+  --color-neutral-900:  #121418;
+  --color-neutral-950:  #0C0D10;
+  --color-neutral-1000: #08090B;
+
+  /* ---------------------------------------------------------------------
+     4. 色彩 · 语义色 Semantic（已针对深色底调整亮度）
+        -base = 填充色    -fg = 深色底上的文字/图标    -bg = 弱化底色
+     --------------------------------------------------------------------- */
+  --color-success-base: #22C55E;
+  --color-success-fg:   #4ADE80;
+  --color-success-bg:   rgba(34, 197, 94, 0.14);
+  --color-success-line: rgba(34, 197, 94, 0.34);
+
+  --color-warning-base: #F59E0B;
+  --color-warning-fg:   #FBBF24;
+  --color-warning-bg:   rgba(245, 158, 11, 0.14);
+  --color-warning-line: rgba(245, 158, 11, 0.34);
+
+  --color-danger-base:  #EF4444;
+  --color-danger-fg:    #F87171;
+  --color-danger-bg:    rgba(239, 68, 68, 0.14);
+  --color-danger-line:  rgba(239, 68, 68, 0.34);
+
+  --color-info-base:    #3B82F6;
+  --color-info-fg:      #60A5FA;
+  --color-info-bg:      rgba(59, 130, 246, 0.14);
+  --color-info-line:    rgba(59, 130, 246, 0.34);
+
+  /* ---------------------------------------------------------------------
+     5. 色彩 · 数据可视化序列（相邻色相间隔 ≥ 60°，保证可区分）
+     --------------------------------------------------------------------- */
+  --chart-1: #6C74F0;  /* 靛蓝 */
+  --chart-2: #2DD4BF;  /* 青 */
+  --chart-3: #FBBF24;  /* 琥珀 */
+  --chart-4: #A78BFA;  /* 紫罗兰 */
+  --chart-5: #FB7185;  /* 玫瑰 */
+  --chart-6: #38BDF8;  /* 天蓝 */
+  --chart-grid:  rgba(255, 255, 255, 0.07);
+  --chart-axis:  #767E8E;
+
+  /* ---------------------------------------------------------------------
+     6. 语义化 · 背景与层级 Surface
+     --------------------------------------------------------------------- */
+  --bg-canvas:   #0A0B0D;                 /* 页面最底层 */
+  --bg-surface:  #121418;                 /* 卡片 / 面板 */
+  --bg-elevated: #1A1D22;                 /* 弹层 / 下拉 / 悬浮卡 */
+  --bg-inset:    #08090B;                 /* 内嵌区域 / 代码块 */
+  --bg-overlay:  rgba(8, 9, 11, 0.72);    /* 遮罩 */
+
+  --bg-hover:    rgba(255, 255, 255, 0.04);
+  --bg-active:   rgba(255, 255, 255, 0.08);
+  --bg-selected: rgba(108, 116, 240, 0.16);
+
+  /* ---------------------------------------------------------------------
+     7. 语义化 · 文字 Text
+     --------------------------------------------------------------------- */
+  --text-primary:   #F2F4F7;   /* 标题 / 正文主色 */
+  --text-secondary: #A2A9B7;   /* 次要说明、表单标签 */
+  --text-tertiary:  #767E8E;   /* 辅助信息、时间戳（对画布 ≥4.5:1） */
+  --text-disabled:  #4A505C;   /* 禁用态 */
+  --text-inverse:   #0C0D10;   /* 浅底上的文字 */
+  --text-link:      #8B93F5;   /* 链接 */
+  --text-link-hover:#A9AFF8;
+
+  /* ---------------------------------------------------------------------
+     8. 语义化 · 描边 Border
+     --------------------------------------------------------------------- */
+  --border-subtle:  rgba(255, 255, 255, 0.06);  /* 分割线、表格行 */
+  --border-default: rgba(255, 255, 255, 0.10);  /* 卡片、输入框 */
+  --border-strong:  rgba(255, 255, 255, 0.18);  /* 强调边框、按下态 */
+  --border-focus:   #6C74F0;                    /* 聚焦环 */
+
+  /* ---------------------------------------------------------------------
+     9. 字体 Typography
+     --------------------------------------------------------------------- */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei",
+               "Hiragino Sans GB", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas,
+               "Liberation Mono", Menlo, monospace;
+
+  /* 字重 */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* 字阶 —— 每档 = 字号 / 行高 / 字间距 */
+  --fs-display-xl: 48px;  --lh-display-xl: 56px;  --ls-display-xl: -0.022em;
+  --fs-display-l:  36px;  --lh-display-l:  44px;  --ls-display-l:  -0.020em;
+  --fs-h1:         30px;  --lh-h1:         38px;  --ls-h1:         -0.016em;
+  --fs-h2:         24px;  --lh-h2:         32px;  --ls-h2:         -0.012em;
+  --fs-h3:         20px;  --lh-h3:         28px;  --ls-h3:         -0.010em;
+  --fs-h4:         18px;  --lh-h4:         26px;  --ls-h4:         -0.006em;
+  --fs-body-lg:    16px;  --lh-body-lg:    26px;  --ls-body-lg:     0;
+  --fs-body:       14px;  --lh-body:       22px;  --ls-body:        0;  /* 默认正文 */
+  --fs-body-sm:    13px;  --lh-body-sm:    20px;  --ls-body-sm:     0;
+  --fs-caption:    12px;  --lh-caption:    18px;  --ls-caption:     0.01em;
+  --fs-overline:   11px;  --lh-overline:   16px;  --ls-overline:    0.08em;
+
+  /* ---------------------------------------------------------------------
+     10. 间距 Spacing（4px 基准网格）
+     --------------------------------------------------------------------- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* 语义化间距 —— 直接用这些，不要凭感觉写 px */
+  --gap-inline:    8px;   /* 图标与文字之间 */
+  --gap-stack-sm:  8px;   /* 紧密堆叠元素 */
+  --gap-stack:     16px;  /* 表单字段之间 */
+  --pad-control:   10px 14px;  /* 按钮 / 输入框内边距 */
+  --pad-card:      20px;       /* 卡片内边距 */
+  --pad-section:   64px;       /* 区块上下留白 */
+
+  /* ---------------------------------------------------------------------
+     11. 圆角 Radius
+     --------------------------------------------------------------------- */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   8px;    /* 默认：按钮、输入框 */
+  --radius-lg:   12px;   /* 卡片 */
+  --radius-xl:   16px;   /* 弹层、大面板 */
+  --radius-2xl:  24px;
+  --radius-full: 9999px; /* 胶囊、头像 */
+
+  /* ---------------------------------------------------------------------
+     12. 阴影 Shadow（深色模式需更含蓄，靠叠层而非纯黑）
+     --------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.50);
+  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.60);
+  --shadow-glow: 0 0 0 1px rgba(108, 116, 240, 0.45), 0 6px 24px rgba(108, 116, 240, 0.28);
+  --shadow-focus: 0 0 0 3px rgba(108, 116, 240, 0.36);  /* 键盘聚焦环 */
+
+  /* ---------------------------------------------------------------------
+     13. 动效 Motion
+     --------------------------------------------------------------------- */
+  --duration-instant: 90ms;
+  --duration-fast:    140ms;
+  --duration-base:    200ms;
+  --duration-slow:    320ms;
+  --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------------------------------------------------------------------
+     14. 栅格与层级 Grid / Z-index
+     --------------------------------------------------------------------- */
+  --container-max: 1280px;
+  --container-wide: 1440px;
+  --grid-columns: 12;
+  --grid-gutter: 24px;
+
+  --z-base: 0;
+  --z-sticky: 100;
+  --z-dropdown: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+/* 断点参考（CSS 变量无法用于媒体查询，此处为文档用途）
+   sm  640px   sm2 768px   md 1024px   lg 1280px   xl 1536px
+*/

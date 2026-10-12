@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0B0D">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%236c74f0%27/%3E%3Cpath d=%27M10 7H7v6m15-6h3v6M7 20v5h5m8 0h5v-5M11 12h10M11 17h7M11 22h3%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272%27/%3E%3C/svg%3E">
+  <meta name="description" content="教程变更定位助手：从 Word 教程集合中定位受变更影响的内容，核对原文并导出修改清单。">
+  <title>教程变更定位助手 · Trace</title>
+  <link rel="stylesheet" href="tailwind.css">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="vendor/jszip.min.js" defer></script>
+  <script src="app.js" type="module"></script>
+</head>
+<body>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m8 0h3a2 2 0 0 0 2-2v-3M7 8h10M7 12h7M7 16h4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.3 1.7c-1.3.8-1.8 1.3-1.8 2.8M12 17h.01"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m10.3 4-8 14a2 2 0 0 0 1.7 3h16a2 2 0 0 0 1.7-3l-8-14a2 2 0 0 0-3.4 0ZM12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5ZM20 2v4M18 4h4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5c-3-2-7-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V4c-3-1-7-1-10 1Zm0 0v15"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 3v6c0 5-4 8-8 11-4-3-8-6-8-11V5Z"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m16 3 5 5L8 21H3v-5Zm-2 2 5 5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 6a8 8 0 0 1 13 2M5 16a8 8 0 0 0 13 2"/></symbol>
+  </defs></svg>
+  <header class="app-header">
+    <a href="#upload" class="brand" aria-label="Trace 工作台" data-stage="upload"><span class="brand-symbol"><svg><use href="#i-scan"/></svg></span><span>trace<span class="brand-period">.</span></span><span class="brand-caption">教程变更定位</span></a>
+    <nav aria-label="主导航" class="header-nav"><button class="nav-button" id="newTask" aria-label="新建任务"><svg class="icon"><use href="#i-plus"/></svg><span>新建任务</span></button><button class="nav-button" data-nav="history"><svg class="icon"><use href="#i-clock"/></svg><span>任务记录</span></button><button class="icon-btn" data-action="help" aria-label="使用指南"><svg class="icon"><use href="#i-help"/></svg></button></nav>
+  </header>
+  <main>
+    <div class="page-heading"><span class="eyebrow" id="pageEyebrow">把教程更新，变简单</span><h1 id="pageTitle" tabindex="-1">这次变更，哪些教程需要更新？</h1><p id="pageSubtitle">上传教程文档，我们帮你找到需要修改的地方。</p></div>
+    <nav class="workflow" aria-label="任务步骤"><button class="step current" data-stage="upload"><span class="step-number">1</span><span>导入教程</span></button><span class="step-line"></span><button class="step" data-stage="configure" disabled><span class="step-number">2</span><span>描述变更</span></button><span class="step-line"></span><button class="step" data-stage="results" disabled><span class="step-number">3</span><span>核对结果</span></button></nav>
+    <section id="uploadView" data-view="upload" class="stage-view upload-view" aria-label="导入教程">
+      <div class="panel upload-panel">
+        <input id="fileInput" type="file" accept=".docx" class="hidden">
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="上传 Word 文档"><div class="upload-illustration"><span class="sheet sheet-back"></span><span class="sheet sheet-front"><svg class="icon"><use href="#i-file"/></svg><span class="sheet-line"></span><span class="sheet-line short"></span></span><span class="upload-bubble"><svg class="icon"><use href="#i-upload"/></svg></span></div><h2>先放入你的教程文档</h2><p>将 Word 文件拖到这里，或点击选择</p><span class="btn primary upload-cta"><svg class="icon"><use href="#i-plus"/></svg>选择 Word 文档</span><small>支持 .docx · 单个文件 · 最大 20 MB</small></div>
+        <div id="uploadedContent" class="hidden"><div class="upload-success"><svg class="icon"><use href="#i-check"/></svg><h2>文档已准备好</h2><p>确认教程目录后，就可以描述这次变更。</p></div><div class="file-card" id="fileCard"></div><div class="document-metrics" id="docMetrics"></div><div class="upload-next"><button class="btn secondary" id="previewDoc"><svg class="icon"><use href="#i-book"/></svg>查看与调整目录</button><button class="btn primary" id="continueButton">下一步，描述变更<svg class="icon"><use href="#i-arrow"/></svg></button></div></div>
+        <p id="fileError" class="field-error hidden" role="alert"></p>
+        <div class="upload-footnote"><svg class="icon"><use href="#i-shield"/></svg><span>文件在本地处理，原始文档不会被修改。</span></div>
+      </div>
+      <div class="demo-entry"><span>想先了解使用流程？</span><button class="text-button" data-action="demo-start">用示例体验一次 <span aria-hidden="true">→</span></button></div>
+    </section>
+    <section id="configureView" data-view="configure" class="stage-view configure-view hidden" aria-label="描述变更">
+      <div id="configDocument" class="config-document"></div>
+      <form id="changeForm" class="panel change-panel">
+        <div class="field-label"><label for="description">这次更新了什么？ <span class="required">*</span></label><button type="button" class="text-button" id="fillExample">填入示例</button></div>
+        <textarea id="description" rows="4" required maxlength="2000" placeholder="例如：平台功能 Agent 更名为 Skills，需要同步更新教程中的功能名称。"></textarea>
+        <div class="change-pair"><label for="oldText">原内容 <span class="optional">选填</span><input id="oldText" placeholder="例如 Agent" maxlength="300"></label><svg class="icon"><use href="#i-arrow"/></svg><label for="newText">新内容 <span class="optional">选填</span><input id="newText" placeholder="例如 Skills" maxlength="300"></label></div>
+        <button type="button" class="advanced-entry" data-action="advanced"><span class="advanced-icon"><svg class="icon"><use href="#i-grid"/></svg></span><span><strong>检查范围与例外</strong><small id="advancedSummary">有些内容需要保留？在这里补充说明。</small></span><svg class="icon"><use href="#i-arrow"/></svg></button>
+        <div class="hidden"><input id="scope" aria-label="适用范围"><textarea id="exceptions" aria-label="例外情况"></textarea></div>
+        <div class="form-actions"><button type="button" class="btn ghost" data-stage="upload">← 返回上一步</button><button type="submit" class="btn primary" id="analyzeButton"><svg class="icon"><use href="#i-spark"/></svg><span>开始定位</span></button></div>
+      </form>
+      <p class="quiet-note">当前为交互原型，使用本地规则分析，尚未接入 AI 服务。</p>
+    </section>
+    <section id="resultsView" data-view="results" class="stage-view results-view hidden" aria-label="定位结果">
+      <div id="staleBanner" class="notice warning hidden" role="status"><svg class="icon"><use href="#i-alert"/></svg><span>变更要求已调整。这是上次任务结果，请重新分析。</span><button class="text-button" data-stage="configure">返回修改</button></div>
+      <div class="results-heading"><div><span id="demoBadge" class="mini-badge hidden">示例任务</span><p id="taskMeta"></p></div><div class="result-top-actions"><button class="btn secondary" data-stage="configure" id="editChange"><svg class="icon"><use href="#i-edit"/></svg>修改变更</button><div class="export-wrap"><button class="btn primary" id="exportButton"><svg class="icon"><use href="#i-download"/></svg>导出清单<svg class="icon small"><use href="#i-down"/></svg></button><div id="exportMenu" class="dropdown hidden"><button data-export="all">导出全部结果 <span>CSV</span></button><button data-export="filtered">导出当前筛选 <span>CSV</span></button></div></div></div></div>
+      <div id="progressArea" class="progress-area" aria-live="polite"></div>
+      <div class="panel results-panel"><div class="results-toolbar"><div id="statusTabs" class="status-tabs" role="tablist" aria-label="判断状态"></div><div class="filter-row"><label class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="search" type="search" placeholder="搜索教程或原文" aria-label="搜索结果"></label><select id="articleFilter" aria-label="按教程筛选"><option value="all">全部教程</option></select></div></div><div class="list-caption"><span id="listCount"></span><span>点击内容，查看修改建议</span></div><div id="resultList" class="result-list"></div><div class="results-footer"><span>按原文顺序排列 · 修改前请核对建议</span><span id="resultFooterCount"></span></div></div>
+    </section>
+    <footer class="page-footer"><span>trace. <span class="footer-divider">/</span> 让教程跟上每一次更新</span><button class="text-button muted" data-action="help">使用指南</button></footer>
+  </main>
+  <dialog id="mainDialog" aria-labelledby="dialogTitle"><div class="dialog-header"><div><div id="dialogEyebrow" class="eyebrow">DOCUMENT PREVIEW</div><h2 id="dialogTitle">文档预览与目录确认</h2></div><button class="icon-btn" id="closeDialog" aria-label="关闭弹窗"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="dialogBody"></div></dialog>
+  <dialog id="resultDialog" class="detail-drawer" aria-labelledby="resultDialogTitle"><div class="dialog-header"><div><div class="eyebrow">内容核对</div><h2 id="resultDialogTitle">查看修改建议</h2></div><button class="icon-btn" id="closeDetail" aria-label="关闭详情"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="detailPanel" class="detail-panel"></div><div class="drawer-footer"><button class="btn secondary" id="previousResult">← 上一条</button><span id="detailPosition"></span><button class="btn secondary" id="nextResult">下一条 →</button></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
