@@ -51,7 +51,7 @@
         <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="上传 Word 文档"><div class="upload-illustration"><span class="sheet sheet-back"></span><span class="sheet sheet-front"><svg class="icon"><use href="#i-file"/></svg><span class="sheet-line"></span><span class="sheet-line short"></span></span><span class="upload-bubble"><svg class="icon"><use href="#i-upload"/></svg></span></div><h2>先放入你的教程文档</h2><p>将 Word 文件拖到这里，或点击选择</p><span class="btn primary upload-cta"><svg class="icon"><use href="#i-plus"/></svg>选择 Word 文档</span><small>支持 .docx · 单个文件 · 最大 20 MB</small></div>
         <div id="uploadedContent" class="hidden"><div class="upload-success"><svg class="icon"><use href="#i-check"/></svg><h2>文档已准备好</h2><p>确认教程目录后，就可以描述这次变更。</p></div><div class="file-card" id="fileCard"></div><div class="document-metrics" id="docMetrics"></div><div class="upload-next"><button class="btn secondary" id="previewDoc"><svg class="icon"><use href="#i-book"/></svg>查看与调整目录</button><button class="btn primary" id="continueButton">下一步，描述变更<svg class="icon"><use href="#i-arrow"/></svg></button></div></div>
         <p id="fileError" class="field-error hidden" role="alert"></p>
-        <div class="upload-footnote"><svg class="icon"><use href="#i-shield"/></svg><span>文件在本地处理，原始文档不会被修改。</span></div>
+        <div class="upload-footnote"><svg class="icon"><use href="#i-shield"/></svg><span id="processingNotice">文件在本地处理，原始文档不会被修改。</span></div>
       </div>
       <div class="demo-entry"><span>想先了解使用流程？</span><button class="text-button" data-action="demo-start">用示例体验一次 <span aria-hidden="true">→</span></button></div>
     </section>
@@ -65,7 +65,7 @@
         <div class="hidden"><input id="scope" aria-label="适用范围"><textarea id="exceptions" aria-label="例外情况"></textarea></div>
         <div class="form-actions"><button type="button" class="btn ghost" data-stage="upload">← 返回上一步</button><button type="submit" class="btn primary" id="analyzeButton"><svg class="icon"><use href="#i-spark"/></svg><span>开始定位</span></button></div>
       </form>
-      <p class="quiet-note">当前为交互原型，使用本地规则分析，尚未接入 AI 服务。</p>
+      <p class="quiet-note" id="analysisNotice">当前使用本地规则，已预留 AI 分析接口，尚未接入真实 AI。</p>
     </section>
     <section id="resultsView" data-view="results" class="stage-view results-view hidden" aria-label="定位结果">
       <div id="staleBanner" class="notice warning hidden" role="status"><svg class="icon"><use href="#i-alert"/></svg><span>变更要求已调整。这是上次任务结果，请重新分析。</span><button class="text-button" data-stage="configure">返回修改</button></div>

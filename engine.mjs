@@ -53,9 +53,9 @@ export function groupBlocks(blocks, starts, titles={}) {
   return articles;
 }
 export function csvString(rows, fileName, config){
-  const headers=['结果编号','文件名','变更说明','教程编号','教程标题','原文章链接或ID','具体位置','原文引用','判断状态','修改原因','建议改写','变更依据','适用范围','例外情况'];
+  const headers=['结果编号','文件名','变更说明','教程编号','教程标题','原文章链接或ID','具体位置','原文引用','判断状态','修改原因','建议改写','变更依据','适用范围','例外情况','分析方式'];
   const cell=v=>{let s=String(v??'');if(/^[\s]*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
-  return '\uFEFF'+[headers,...rows.map(r=>[r.id,fileName,config.description,r.articleId,r.articleTitle,r.articleLink,r.location,r.text,STATUS[r.status],r.reason,r.suggestion,r.basis,config.scope,config.exceptions])].map(r=>r.map(cell).join(',')).join('\r\n');
+  return '\uFEFF'+[headers,...rows.map(r=>[r.id,fileName,config.description,r.articleId,r.articleTitle,r.articleLink,r.location,r.text,STATUS[r.status],r.reason,r.suggestion,r.basis,config.scope,config.exceptions,r.analysisSource==='api'?'AI 服务分析':'本地规则分析'])].map(r=>r.map(cell).join(',')).join('\r\n');
 }
 export function createDemo(){
   const definitions=[

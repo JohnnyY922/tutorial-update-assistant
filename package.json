@@ -1,8 +1,8 @@
 {
   "name": "trace-tutorial-change-assistant",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "scripts": {"build:css": "tailwindcss -c tailwind.config.cjs -i input.css -o tailwind.css --minify", "preview": "python3 preview.py"},
+  "scripts": {"test": "node --test tests/*.test.mjs", "build:css": "tailwindcss -c tailwind.config.cjs -i input.css -o tailwind.css --minify", "preview": "python3 preview.py"},
   "devDependencies": {"tailwindcss": "3.4.17"}
 }
