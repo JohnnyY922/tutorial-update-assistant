@@ -12,7 +12,7 @@ python3 preview.py
 
 打开 http://127.0.0.1:5173 。源文件保存后，浏览器自动刷新。也可以双击 `启动预览.command`。端口被占用时可运行 `python3 preview.py --port 5174`。
 
-这是浏览器 ES 模块应用，需要通过 HTTP 访问，不能直接双击 index.html 使用。Python 3 只负责提供本地静态文件，不参与读取用户文档；没有上传接口。Tailwind 编译产物和 JSZip 已打包在本地，日常预览无需 npm 或 CDN。
+这是浏览器 ES 模块应用，需要通过 HTTP 访问，不能直接双击 index.html 使用。Python 3 只负责提供本地静态文件，不参与读取用户文档；提供可选的上传接口。Tailwind 编译产物和 JSZip 已打包在本地，日常预览无需 npm 或 CDN。
 
 ## 页面层级与主流程
 
